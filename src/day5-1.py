@@ -1,5 +1,3 @@
-import re
-
 with open('../inputs/day5.txt') as f:
     input = [line.rstrip() for line in f]
 
@@ -33,6 +31,29 @@ class PointProcessor:
                     self.__points[key] = val
                 else:
                     self.__points.setdefault(key, 1)
+        else:
+            # part2
+            fromX = int(fromXY[0])
+            toX = int(toXY[0])
+            fromY = int(fromXY[1])
+            toY = int(toXY[1])
+
+            stepX = 1 if fromX < toX else -1
+            stepY = 1 if fromY < toY else -1
+            doIt = True
+            while doIt:
+                key = f'{fromX},{fromY}'
+                val = self.__points.get(key)
+                if val:
+                    val += 1
+                    self.__points[key] = val
+                else:
+                    self.__points.setdefault(key, 1)
+
+                if fromX == toX and fromY == toY:
+                    doIt = False
+                fromX += stepX
+                fromY += stepY
 
 
     def getOverlappingPoints(self, overlappingVal):
